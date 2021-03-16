@@ -14,8 +14,7 @@ public class WorkHours {
 
     public String minWork(String file){
         List<RecordWork> records = readFile(Path.of(file));
-        Map<String, RecordWork> minWorks = reportMap(records);
-        return buildString(minWorks);
+        return buildString(records);
     }
 
     private List<RecordWork> readFile(Path path){
@@ -37,30 +36,17 @@ public class WorkHours {
         records.add(new RecordWork(data[0], Integer.parseInt(data[1]), LocalDate.parse(data[2])));
     }
 
-    private Map<String, RecordWork> reportMap(List<RecordWork> records){
-        Map<String, RecordWork> result = new HashMap<>();
-        for(RecordWork record : records){
-            if(result.containsKey(record.getName())){
-                if(result.get(record.getName()).getHoursWork() > record.getHoursWork()){
-                    result.put(record.getName(),record);
-                }
-            }
-            else{
-                result.put(record.getName(), record);
-            }
-        }
-        return result;
-    }
 
-    private String buildString(Map<String, RecordWork> toConvert){
-        StringBuilder sb = new StringBuilder();
-        for(Map.Entry<String, RecordWork> entry : toConvert.entrySet()){
-            sb.append(entry.getKey());
-            sb.append(": ");
-            sb.append(entry.getValue().getDate().toString());
-            sb.append('\n');
+    private String buildString(List<RecordWork> records){
+        int minHours = Integer.MAX_VALUE;
+        RecordWork minWork = new RecordWork(null, Integer.MAX_VALUE, null);
+        for(RecordWork record : records){
+            if(record.getHoursWork() < minHours) {
+                minHours = record.getHoursWork();
+                minWork = record;
+            }
         }
-        return sb.toString();
+        return minWork.getName() + ": " + minWork.getDate().toString();
     }
 
 
