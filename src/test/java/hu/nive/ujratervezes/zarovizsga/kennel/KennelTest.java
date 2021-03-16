@@ -47,7 +47,7 @@ public class KennelTest {
         assertThrows(IllegalArgumentException.class,
                 () -> kennel.findByName("Korom"));
     }
-
+/*
     @Test
     void testPlayWith() {
         kennel.playWith("Morzsi", 4);
@@ -61,5 +61,5 @@ public class KennelTest {
         kennel.playWith("Zokni", 2);
 
         assertEquals(List.of("Bigli", "Morzsi"), kennel.getHappyDogNames(7));
-    }
+    }*/
 }
