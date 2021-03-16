@@ -30,4 +30,18 @@ public class Kennel {
         throw new IllegalArgumentException("Cannot find this dog");
     }
 
+    public void playWith(String name, int hours){
+        findByName(name).play(hours);
+    }
+
+    public List<String> getHappyDogNames(int minHappiness){
+        List<String> result = new ArrayList<>();
+        for(Dog dog : dogs){
+            if(dog.getHappiness() > minHappiness){
+                result.add(dog.getName());
+            }
+        }
+        return result;
+    }
+
 }
